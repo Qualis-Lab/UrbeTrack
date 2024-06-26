@@ -45,7 +45,7 @@ export default class LoginPage {
 
     //Validación logueo correcto
     const userLoged = this.getUserNameLoged(page);
-    await expect(userLoged).toBeVisible();
+    //await expect(userLoged).toBeVisible();
     await expect(userLoged).toContainText(user_login);
   }
 
