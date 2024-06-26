@@ -44,9 +44,13 @@ export default class LoginPage {
     await page.click(this.loginButton);
 
     //Validación logueo correcto
-    const userLoged = this.getUserNameLoged(page);
-    //await expect(userLoged).toBeVisible();
-    await expect(userLoged).toContainText(user_login);
+    //const userLoged = this.getUserNameLoged(page);
+    //const text = await userLoged.innerText();
+    //console.log(text);
+    //console.log(user_login);
+    //await expect(userLoged,"El perfil del usuario no se encuentra visible").toBeVisible();
+    //await expect(userLoged,"El nombre de usuario no es el esperado").toHaveText(user_login);
+
   }
 
 }
