@@ -1,50 +1,36 @@
 import { Page, expect } from "@playwright/test";
 import * as dotenv from 'dotenv';
+import LoginPageObj from "./LoginPageObj";
 dotenv.config();
 
 export default class LoginPage {
 
-
-  private get userInput() {
-    return '[name="txtUsuario"]'
+  private page:Page;
+  private locators:LoginPageObj;
+  constructor (aPage:Page){
+    this.page=aPage;
+    this.locators = new LoginPageObj(aPage);
   }
-  private get passwordInput() {
-    return '[name="txtPassword"]';
-  }
+    async load() {
+      await this.page.goto(process.env.URL || "");
+    }
 
-  private get loginButton() {
-    return '[name="btLogin"]';
-  }
-
-  private get userLoged() {
-    return '[id="ctl00_lblUserName"]';
-  }
-
-  getUserNameLoged(page: Page) {
-    return page.locator(this.userLoged)
-  }
-
-
-  async load(page: Page) {
-    await page.goto(process.env.URL || "");
-  }
-
-  async login(page: Page) {
+  async login() {
 
     //Variables de usuario
     let user_login: string = process.env.USER || "";
     let password_login: string = process.env.PASSWORD || "";
 
     //Ingresamos a la URL
-    await this.load(page);
+    await this.load();
 
     //Proceso de logueo
-    await page.fill(this.userInput, user_login);
-    await page.fill(this.passwordInput, password_login);
-    await page.click(this.loginButton);
+    await this.page.fill(this.locators.getuserInput() , user_login);
+    await this.page.fill(this.locators.getpasswordInput(), password_login);
+    await this.page.click(this.locators.getloginButton());
 
     //Validación logueo correcto
-    //const userLoged = this.getUserNameLoged(page);
+    //const userLoged = this.locators.getUserNameLoged(this.page);
     //const text = await userLoged.innerText();
     //console.log(text);
     //console.log(user_login);
