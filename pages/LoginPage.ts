@@ -39,8 +39,12 @@ export default class LoginPage {
 
   async validateLoginOK(page: Page) {
     //Validación logueo correcto
+    //const userLoged = this.locators.getUserNameLoged(page);
     const userLoged = this.locators.getUserNameLoged(page);
     let user_login: string = process.env.USER || "";
+    //await page.waitForSelector(this.locators.getuserLoged(), { timeout: 10000 });
+    //await page.waitForLoadState(this.locators.getUserNameLoged(), { timeout: 10000 });
+    await page.waitForLoadState('domcontentloaded', { timeout: 10000 });
     await page.waitForSelector(this.locators.getuserLoged(), { timeout: 10000 });
     //console.log(text);
     //console.log(user_login);
