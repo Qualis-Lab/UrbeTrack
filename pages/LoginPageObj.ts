@@ -1,27 +1,32 @@
 import { Page } from "@playwright/test";
 
 export default class LoginPage {
-    private  page:Page;
-    constructor (aPage:Page){
-      this.page=aPage;
+    private page: Page;
+    constructor(aPage: Page) {
+        this.page = aPage;
     }
 
     getuserInput() {
+    /**
+     * Returns the CSS selector for the user input field on the login page.
+     *
+     * @return {string} The CSS selector for the user input field.
+     */
         return '[name="txtUsuario"]'
-      }
-       getpasswordInput() {
+    }
+    getpasswordInput() {
         return '[name="txtPassword"]';
-      }
-    
-       getloginButton() {
+    }
+
+    getloginButton() {
         return '[name="btLogin"]';
-      }
-    
-       getuserLoged() {
+    }
+
+    getuserLoged() {
         return '[id="ctl00_lblUserName"]';
-      }
-    
-      getUserNameLoged(apage: Page) {
+    }
+
+    getUserNameLoged(apage: Page) {
         return apage.locator(this.getuserLoged())
-      }
+    }
 }

@@ -4,6 +4,7 @@ import LoginPageObj from "./LoginPageObj";
 dotenv.config();
 
 export default class LoginPage {
+  
 
   private page:Page;
   private locators:LoginPageObj;
@@ -16,7 +17,12 @@ export default class LoginPage {
     }
 
   async login() {
-
+  /**
+   * Proceso de logueo
+   *
+   * @param {type} paramName - description of parameter
+   * @return {type} description of return value
+   */
     //Variables de usuario
     let user_login: string = process.env.USER || "";
     let password_login: string = process.env.PASSWORD || "";
@@ -37,6 +43,17 @@ export default class LoginPage {
     //await expect(userLoged,"El perfil del usuario no se encuentra visible").toBeVisible();
     //await expect(userLoged,"El nombre de usuario no es el esperado").toHaveText(user_login);
 
+  }
+
+  async validateLoginOK(page: Page) {
+    //Validación logueo correcto
+    const userLoged = this.locators.getUserNameLoged(page);
+    let user_login: string = process.env.USER || "";
+    await page.waitForSelector(this.locators.getuserLoged(), { timeout: 5000 });
+    //console.log(text);
+    //console.log(user_login);
+    await expect(userLoged,"El perfil del usuario no se encuentra visible").toBeVisible();
+    await expect(userLoged,"El nombre de usuario no es el esperado").toHaveText(user_login);
   }
 
 }

@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import LoginPage from '../pages/loginPage';
+import LoginPage from '../pages/LoginPage';
 
 test.describe('Regresión Urbetrack', ()=>{
   
@@ -7,6 +7,7 @@ test.describe('Regresión Urbetrack', ()=>{
     const loginPage = new LoginPage(page);
   
     await loginPage.login();
+    await loginPage.validateLoginOK(page);
   });
 
   test('Ingreso a sanidad', async ({ page }) => {
