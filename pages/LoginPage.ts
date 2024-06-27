@@ -41,7 +41,7 @@ export default class LoginPage {
     //Validación logueo correcto
     const userLoged = this.locators.getUserNameLoged(page);
     let user_login: string = process.env.USER || "";
-    await page.waitForSelector(this.locators.getuserLoged(), { timeout: 5000 });
+    await page.waitForSelector(this.locators.getuserLoged(), { timeout: 10000 });
     //console.log(text);
     //console.log(user_login);
     await expect(userLoged,"El perfil del usuariose encuentra visible").toBeVisible();

@@ -1,6 +1,7 @@
 import { Page, expect } from "@playwright/test";
 import SanidadPageObj from "./SanidadPageObj";
 import * as dotenv from 'dotenv';
+import { pagSanidad } from '../dataEntry/DataEntrySanidad';
 dotenv.config();
 
 export default class SanidadPage {
@@ -19,6 +20,7 @@ export default class SanidadPage {
 
         await page.waitForSelector(this.locators.getNamePageSection(), { timeout: 5000 });
         await expect(pageElement,"El nombre de la página es el esperado: "+namePage).toHaveText(namePage);
+        console.log(pagSanidad.distrito);
     }
 
 
