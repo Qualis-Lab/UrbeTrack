@@ -1,6 +1,6 @@
 import { Page } from "@playwright/test";
 
-export default class LoginPage {
+export default class LoginPageObj {
     private page: Page;
     constructor(aPage: Page) {
         this.page = aPage;

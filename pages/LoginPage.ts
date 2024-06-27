@@ -1,22 +1,22 @@
 import { Page, expect } from "@playwright/test";
-import * as dotenv from 'dotenv';
 import LoginPageObj from "./LoginPageObj";
+import * as dotenv from 'dotenv';
 dotenv.config();
+
 
 export default class LoginPage {
   
 
-  private page:Page;
+  //private page:Page;
   private locators:LoginPageObj;
   constructor (aPage:Page){
-    this.page=aPage;
     this.locators = new LoginPageObj(aPage);
   }
-    async load() {
-      await this.page.goto(process.env.URL || "");
+    async load(page: Page) {
+      await page.goto(process.env.URL || "");
     }
 
-  async login() {
+  async login(page) {
   /**
    * Proceso de logueo
    *
@@ -28,21 +28,13 @@ export default class LoginPage {
     let password_login: string = process.env.PASSWORD || "";
 
     //Ingresamos a la URL
-    await this.load();
+    await this.load(page);
+    await page.goto(process.env.URL || "");
 
     //Proceso de logueo
-    await this.page.fill(this.locators.getuserInput() , user_login);
-    await this.page.fill(this.locators.getpasswordInput(), password_login);
-    await this.page.click(this.locators.getloginButton());
-
-    //Validación logueo correcto
-    //const userLoged = this.locators.getUserNameLoged(this.page);
-    //const text = await userLoged.innerText();
-    //console.log(text);
-    //console.log(user_login);
-    //await expect(userLoged,"El perfil del usuario no se encuentra visible").toBeVisible();
-    //await expect(userLoged,"El nombre de usuario no es el esperado").toHaveText(user_login);
-
+    await page.fill(this.locators.getuserInput() , user_login);
+    await page.fill(this.locators.getpasswordInput(), password_login);
+    await page.click(this.locators.getloginButton());
   }
 
   async validateLoginOK(page: Page) {
@@ -52,8 +44,8 @@ export default class LoginPage {
     await page.waitForSelector(this.locators.getuserLoged(), { timeout: 5000 });
     //console.log(text);
     //console.log(user_login);
-    await expect(userLoged,"El perfil del usuario no se encuentra visible").toBeVisible();
-    await expect(userLoged,"El nombre de usuario no es el esperado").toHaveText(user_login);
+    await expect(userLoged,"El perfil del usuariose encuentra visible").toBeVisible();
+    await expect(userLoged,"El nombre de usuario es el esperado: "+user_login).toHaveText(user_login);
   }
 
 }

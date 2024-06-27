@@ -1,22 +1,25 @@
 import { test, expect } from '@playwright/test';
 import LoginPage from '../pages/LoginPage';
+import SanidadPage from '../pages/SanidadPage';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
-test.describe('Regresión Urbetrack', ()=>{
-  
-  test('Logueo con usuario', async ({ page }) => {
+test("Regresión completa Urbetrack", async ({ page }) => {
+  await test.step('logueo', async () => {
     const loginPage = new LoginPage(page);
-  
-    await loginPage.login();
+
+    await loginPage.login(page);
     await loginPage.validateLoginOK(page);
   });
 
-  test('Ingreso a sanidad', async ({ page }) => {
-    const loginPage = new LoginPage(page);
-  
-    await loginPage.login();
+  await test.step('Configuración de sanidad', async () => {
+    const sanidadPage = new SanidadPage(page);
+    await sanidadPage.load(page);
   });
 
-});
+
+})
 
 
 
+  
